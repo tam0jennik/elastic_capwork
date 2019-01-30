@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "43258af3-fd76-4ec5-af48-f2a913d44a94",
+		"_postman_id": "c9f1f620-715c-4545-8af2-f5b4e6ca4b19",
 		"name": "Elasticsearch CapWork",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -558,6 +558,86 @@
 						{
 							"key": "q",
 							"value": "Horatio"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "16 - check analyze for field",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"field\" : \"text_entry\",\r\n  \"text\" : \"Enter HORATIO and MARCELLUS\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/_analyze",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						"_analyze"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "17 - simple search with params",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/doc/_search?q=Horatio&sort=speech_number&from=0&size=3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						"doc",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Horatio"
+						},
+						{
+							"key": "sort",
+							"value": "speech_number"
+						},
+						{
+							"key": "from",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
 						}
 					]
 				}
