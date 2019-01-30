@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c9f1f620-715c-4545-8af2-f5b4e6ca4b19",
+		"_postman_id": "040c0ce0-aafc-4725-b99e-878909d7b750",
 		"name": "Elasticsearch CapWork",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -149,11 +149,8 @@
 		},
 		{
 			"name": "5 - create first index",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -198,12 +195,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_2/",
+					"raw": "{{url}}/{{index_name}}_1/",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"{{index_name}}_2",
+						"{{index_name}}_1",
 						""
 					]
 				}
@@ -230,14 +227,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/_cat/shards/{{index_name}}_2?v",
+					"raw": "{{url}}/_cat/shards/{{index_name}}_1?v",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"_cat",
 						"shards",
-						"{{index_name}}_2"
+						"{{index_name}}_1"
 					],
 					"query": [
 						{
@@ -295,12 +292,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_2/doc/_search",
+					"raw": "{{url}}/{{index_name}}_1/doc/_search",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"{{index_name}}_2",
+						"{{index_name}}_1",
 						"doc",
 						"_search"
 					]
@@ -325,7 +322,7 @@
 					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_1.0/doc/1",
+					"raw": "{{url}}/{{index_name}}_1.0/doc/1/",
 					"host": [
 						"{{url}}"
 					],
@@ -355,14 +352,14 @@
 					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_1.0/doc/111/_create",
+					"raw": "{{url}}/{{index_name}}_1.0/doc/1/_create",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"{{index_name}}_1.0",
 						"doc",
-						"111",
+						"1",
 						"_create"
 					]
 				}
@@ -386,14 +383,14 @@
 					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_1.0/doc/111?version=1",
+					"raw": "{{url}}/{{index_name}}_1.0/doc/1?version=1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"{{index_name}}_1.0",
 						"doc",
-						"111"
+						"1"
 					],
 					"query": [
 						{
@@ -613,7 +610,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/{{index_name}}_2/doc/_search?q=Horatio&sort=speech_number&from=0&size=3",
+					"raw": "{{url}}/{{index_name}}_2/doc/_search?q=Horatio&sort=speech_number&from=0&size=3&preference=_primary",
 					"host": [
 						"{{url}}"
 					],
@@ -638,6 +635,10 @@
 						{
 							"key": "size",
 							"value": "3"
+						},
+						{
+							"key": "preference",
+							"value": "_primary"
 						}
 					]
 				}
