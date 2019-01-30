@@ -1,0 +1,149 @@
+1 query & match
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "match": {
+      "text_entry": "HORATIO"
+    }
+  }
+}
+
+2 complex search request
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "match": {
+      "text_entry": "HORATIO"
+    }
+  },
+  "sort": { "speech_number": { "order": "desc" } },
+  "from": 3,
+  "size": 5,
+  "track_scores" : true,
+  "_source": ["speech_number", "text_entry"]
+}
+
+3  match with several words
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "match": {
+      "text_entry": "love death"
+    }
+  }
+}
+
+4  match with several words
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "match_phrase": {
+      "text_entry": "be or not to be"
+    }
+  }
+}
+
+5  multy match
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "multi_match" : {
+      "query":    "this is a test", 
+      "fields": [ "text_entry", "speaker" ] 
+    }
+  }
+}
+
+6 fuzzy match
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "match": {
+      "speaker": {
+        "query":   "HORECIO",
+        "fuzziness": "auto"     
+      }
+    }
+  }
+}
+
+
+7 term search
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "term" : { "text_entry" : "Horatio" } 
+  }
+}
+
+
+8 term search
+====================
+GET capwork_alexshab_2/doc/_search
+{
+  "query": {
+    "term" : { "speaker" : "HORATIO" } 
+  }
+}
+ 
+ 
+9 range
+================
+GET capwork_alexshab_2/doc/_search
+{
+	"query": {
+		"range": {
+			"speech_number": {
+				"gte": 10,
+				"lte": 30
+			}
+		}
+	}
+}
+
+10 bool context
+================
+GET capwork_alexshab_2/doc/_search
+{
+	"query": {
+		"bool": {
+			"must": [
+					{ "match": { "text_entry": "to be" } },
+					{ "bool" : {"should": [
+								{ "match": { "speaker": "HORATIO" } },
+								{ "match": { "speaker": "HAMLET" } }
+						]} 
+					}					
+				],			
+			"must_not": [
+					{ "match": { "text_entry": "not" } }					
+				]
+		}
+	}
+}
+
+
+11 filter context
+================
+GET capwork_alexshab_2/doc/_search
+{
+	"query": {
+		"bool": {
+		  "filter": {
+		    "term": {
+		      "speaker": "HAMLET"
+		    }
+		  }
+	  }
+  }
+}
+
+
+

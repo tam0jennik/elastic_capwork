@@ -1,0 +1,568 @@
+{
+	"info": {
+		"_postman_id": "43258af3-fd76-4ec5-af48-f2a913d44a94",
+		"name": "Elasticsearch CapWork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Hello Elastic",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Hello Elastic",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "content-length",
+							"value": "292"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"node1\",\n    \"cluster_name\": \"test-home\",\n    \"cluster_uuid\": \"nc4VAr8-T5O-9fRJZ0L06A\",\n    \"version\": {\n        \"number\": \"6.5.4\",\n        \"build_flavor\": \"unknown\",\n        \"build_type\": \"unknown\",\n        \"build_hash\": \"d2ef93d\",\n        \"build_date\": \"2018-12-17T21:17:40.758843Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"7.5.0\",\n        \"minimum_wire_compatibility_version\": \"5.6.0\",\n        \"minimum_index_compatibility_version\": \"5.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}"
+				}
+			]
+		},
+		{
+			"name": "2 - _cat endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/_cat/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_cat",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - _cat health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/_cat/health/?v",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_cat",
+						"health",
+						""
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - _cat nodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/_cat/nodes/?v",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_cat",
+						"nodes",
+						""
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - create first index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6 - check index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 - check index shards",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/_cat/shards/{{index_name}}_2?v",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_cat",
+						"shards",
+						"{{index_name}}_2"
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8  - create document auto id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Hello Elastic\",\r\n  \"number\" : 1\r\n  \r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_1/doc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_1",
+						"doc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9 - get all documents",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/doc/_search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						"doc",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 - create document manual id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_1.0/doc/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_1.0",
+						"doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10.1 - create document explicetly",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_1.0/doc/111/_create",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_1.0",
+						"doc",
+						"111",
+						"_create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10.2 - update document with version",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\" : \"Hello with custom id\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_1.0/doc/111?version=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_1.0",
+						"doc",
+						"111"
+					],
+					"query": [
+						{
+							"key": "version",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11 - analyzer for text",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"analyzer\" : \"standard\",\r\n  \"text\" : \"#$%^This is a TesT!!!\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/_analyze",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_analyze"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12 - magic analyzer for HTML",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tokenizer\" : \"standard\",\r\n  \"filter\" : [\"lowercase\"],\r\n  \"char_filter\" : [\"html_strip\"],\r\n  \"text\" : \"<h1>This is a <span style='style'>Magic HTML Analyzer</span> <b>test</b>!</h1>\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/_analyze",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"_analyze"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13 - create index for full-text search",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"settings\": {\r\n    \"analysis\": {\r\n      \"analyzer\": {\r\n        \"html_analyzer\": {\r\n          \"type\":      \"custom\", \r\n          \"tokenizer\": \"standard\",\r\n          \"char_filter\": [\r\n            \"html_strip\"\r\n          ],\r\n          \"filter\": [\r\n            \"lowercase\"\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"mappings\": {\r\n    \"doc\": {\r\n      \"properties\": {\r\n    \t\"speaker\": {\"type\": \"keyword\"},\r\n    \t\"play_name\": {\"type\": \"keyword\"},\r\n    \t\"line_id\": {\"type\": \"integer\"},\r\n    \t\"speech_number\": {\"type\": \"integer\"},\r\n    \t\"text_entry\": {\"type\" : \"text\", \"analyzer\" : \"html_analyzer\" }\r\n      }\r\n    }\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14 - fill index for search",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"index\":{\"_id\":0}}\r\n{\"type\":\"act\",\"line_id\":1,\"play_name\":\"Henry IV\", \"speech_number\":\"\",\"line_number\":\"\",\"speaker\":\"\",\"text_entry\":\"ACT I\"}\r\n{\"index\":{\"_id\":1}}\r\n{\"type\":\"scene\",\"line_id\":2,\"play_name\":\"Henry IV\",\"speech_number\":\"\",\"line_number\":\"\",\"speaker\":\"\",\"text_entry\":\"SCENE I. London. The palace.\"}\r\n{\"index\":{\"_id\":2}}\r\n{\"type\":\"line\",\"line_id\":3,\"play_name\":\"Henry IV\",\"speech_number\":\"\",\"line_number\":\"\",\"speaker\":\"\",\"text_entry\":\"Enter KING HENRY, LORD JOHN OF LANCASTER, the EARL of WESTMORELAND, SIR WALTER BLUNT, and others\"}\r\n{\"index\":{\"_id\":3}}\r\n{\"type\":\"line\",\"line_id\":4,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.1\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"So shaken as we are, so wan with care,\"}\r\n{\"index\":{\"_id\":4}}\r\n{\"type\":\"line\",\"line_id\":5,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.2\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Find we a time for frighted peace to pant,\"}\r\n{\"index\":{\"_id\":5}}\r\n{\"type\":\"line\",\"line_id\":6,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.3\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And breathe short-winded accents of new broils\"}\r\n{\"index\":{\"_id\":6}}\r\n{\"type\":\"line\",\"line_id\":7,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.4\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"To be commenced in strands afar remote.\"}\r\n{\"index\":{\"_id\":7}}\r\n{\"type\":\"line\",\"line_id\":8,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.5\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"No more the thirsty entrance of this soil\"}\r\n{\"index\":{\"_id\":8}}\r\n{\"type\":\"line\",\"line_id\":9,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.6\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Shall daub her lips with her own childrens blood;\"}\r\n{\"index\":{\"_id\":9}}\r\n{\"type\":\"line\",\"line_id\":10,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.7\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Nor more shall trenching war channel her fields,\"}\r\n{\"index\":{\"_id\":10}}\r\n{\"type\":\"line\",\"line_id\":11,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.8\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Nor bruise her flowerets with the armed hoofs\"}\r\n{\"index\":{\"_id\":11}}\r\n{\"type\":\"line\",\"line_id\":12,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.9\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Of hostile paces: those opposed eyes,\"}\r\n{\"index\":{\"_id\":12}}\r\n{\"type\":\"line\",\"line_id\":13,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.10\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Which, like the meteors of a troubled heaven,\"}\r\n{\"index\":{\"_id\":13}}\r\n{\"type\":\"line\",\"line_id\":14,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.11\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"All of one nature, of one substance bred,\"}\r\n{\"index\":{\"_id\":14}}\r\n{\"type\":\"line\",\"line_id\":15,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.12\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Did lately meet in the intestine shock\"}\r\n{\"index\":{\"_id\":15}}\r\n{\"type\":\"line\",\"line_id\":16,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.13\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And furious close of civil butchery\"}\r\n{\"index\":{\"_id\":16}}\r\n{\"type\":\"line\",\"line_id\":17,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.14\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Shall now, in mutual well-beseeming ranks,\"}\r\n{\"index\":{\"_id\":17}}\r\n{\"type\":\"line\",\"line_id\":18,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.15\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"March all one way and be no more opposed\"}\r\n{\"index\":{\"_id\":18}}\r\n{\"type\":\"line\",\"line_id\":19,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.16\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Against acquaintance, kindred and allies:\"}\r\n{\"index\":{\"_id\":19}}\r\n{\"type\":\"line\",\"line_id\":20,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.17\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"The edge of war, like an ill-sheathed knife,\"}\r\n{\"index\":{\"_id\":20}}\r\n{\"type\":\"line\",\"line_id\":21,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.18\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"No more shall cut his master. Therefore, friends,\"}\r\n{\"index\":{\"_id\":21}}\r\n{\"type\":\"line\",\"line_id\":22,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.19\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"As far as to the sepulchre of Christ,\"}\r\n{\"index\":{\"_id\":22}}\r\n{\"type\":\"line\",\"line_id\":23,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.20\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Whose soldier now, under whose blessed cross\"}\r\n{\"index\":{\"_id\":23}}\r\n{\"type\":\"line\",\"line_id\":24,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.21\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"We are impressed and engaged to fight,\"}\r\n{\"index\":{\"_id\":24}}\r\n{\"type\":\"line\",\"line_id\":25,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.22\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Forthwith a power of English shall we levy;\"}\r\n{\"index\":{\"_id\":25}}\r\n{\"type\":\"line\",\"line_id\":26,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.23\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Whose arms were moulded in their mothers womb\"}\r\n{\"index\":{\"_id\":26}}\r\n{\"type\":\"line\",\"line_id\":27,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.24\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"To chase these pagans in those holy fields\"}\r\n{\"index\":{\"_id\":27}}\r\n{\"type\":\"line\",\"line_id\":28,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.25\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Over whose acres walkd those blessed feet\"}\r\n{\"index\":{\"_id\":28}}\r\n{\"type\":\"line\",\"line_id\":29,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.26\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Which fourteen hundred years ago were naild\"}\r\n{\"index\":{\"_id\":29}}\r\n{\"type\":\"line\",\"line_id\":30,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.27\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"For our advantage on the bitter cross.\"}\r\n{\"index\":{\"_id\":30}}\r\n{\"type\":\"line\",\"line_id\":31,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.28\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"But this our purpose now is twelve month old,\"}\r\n{\"index\":{\"_id\":31}}\r\n{\"type\":\"line\",\"line_id\":32,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.29\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And bootless tis to tell you we will go:\"}\r\n{\"index\":{\"_id\":32}}\r\n{\"type\":\"line\",\"line_id\":33,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.30\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Therefore we meet not now. Then let me hear\"}\r\n{\"index\":{\"_id\":33}}\r\n{\"type\":\"line\",\"line_id\":34,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.31\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Of you, my gentle cousin Westmoreland,\"}\r\n{\"index\":{\"_id\":34}}\r\n{\"type\":\"line\",\"line_id\":35,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.32\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"What yesternight our council did decree\"}\r\n{\"index\":{\"_id\":35}}\r\n{\"type\":\"line\",\"line_id\":36,\"play_name\":\"Henry IV\",\"speech_number\":1,\"line_number\":\"1.1.33\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"In forwarding this dear expedience.\"}\r\n{\"index\":{\"_id\":36}}\r\n{\"type\":\"line\",\"line_id\":37,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.34\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"My liege, this haste was hot in question,\"}\r\n{\"index\":{\"_id\":37}}\r\n{\"type\":\"line\",\"line_id\":38,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.35\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"And many limits of the charge set down\"}\r\n{\"index\":{\"_id\":38}}\r\n{\"type\":\"line\",\"line_id\":39,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.36\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"But yesternight: when all athwart there came\"}\r\n{\"index\":{\"_id\":39}}\r\n{\"type\":\"line\",\"line_id\":40,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.37\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"A post from Wales loaden with heavy news;\"}\r\n{\"index\":{\"_id\":40}}\r\n{\"type\":\"line\",\"line_id\":41,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.38\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Whose worst was, that the noble Mortimer,\"}\r\n{\"index\":{\"_id\":41}}\r\n{\"type\":\"line\",\"line_id\":42,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.39\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Leading the men of Herefordshire to fight\"}\r\n{\"index\":{\"_id\":42}}\r\n{\"type\":\"line\",\"line_id\":43,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.40\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Against the irregular and wild Glendower,\"}\r\n{\"index\":{\"_id\":43}}\r\n{\"type\":\"line\",\"line_id\":44,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.41\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Was by the rude hands of that Welshman taken,\"}\r\n{\"index\":{\"_id\":44}}\r\n{\"type\":\"line\",\"line_id\":45,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.42\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"A thousand of his people butchered;\"}\r\n{\"index\":{\"_id\":45}}\r\n{\"type\":\"line\",\"line_id\":46,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.43\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Upon whose dead corpse there was such misuse,\"}\r\n{\"index\":{\"_id\":46}}\r\n{\"type\":\"line\",\"line_id\":47,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.44\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Such beastly shameless transformation,\"}\r\n{\"index\":{\"_id\":47}}\r\n{\"type\":\"line\",\"line_id\":48,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.45\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"By those Welshwomen done as may not be\"}\r\n{\"index\":{\"_id\":48}}\r\n{\"type\":\"line\",\"line_id\":49,\"play_name\":\"Henry IV\",\"speech_number\":2,\"line_number\":\"1.1.46\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Without much shame retold or spoken of.\"}\r\n{\"index\":{\"_id\":49}}\r\n{\"type\":\"line\",\"line_id\":50,\"play_name\":\"Henry IV\",\"speech_number\":3,\"line_number\":\"1.1.47\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"It seems then that the tidings of this broil\"}\r\n{\"index\":{\"_id\":50}}\r\n{\"type\":\"line\",\"line_id\":51,\"play_name\":\"Henry IV\",\"speech_number\":3,\"line_number\":\"1.1.48\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Brake off our business for the Holy Land.\"}\r\n{\"index\":{\"_id\":51}}\r\n{\"type\":\"line\",\"line_id\":52,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.49\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"This matchd with other did, my gracious lord;\"}\r\n{\"index\":{\"_id\":52}}\r\n{\"type\":\"line\",\"line_id\":53,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.50\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"For more uneven and unwelcome news\"}\r\n{\"index\":{\"_id\":53}}\r\n{\"type\":\"line\",\"line_id\":54,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.51\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Came from the north and thus it did import:\"}\r\n{\"index\":{\"_id\":54}}\r\n{\"type\":\"line\",\"line_id\":55,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.52\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"On Holy-rood day, the gallant Hotspur there,\"}\r\n{\"index\":{\"_id\":55}}\r\n{\"type\":\"line\",\"line_id\":56,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.53\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Young Harry Percy and brave Archibald,\"}\r\n{\"index\":{\"_id\":56}}\r\n{\"type\":\"line\",\"line_id\":57,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.54\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"That ever-valiant and approved Scot,\"}\r\n{\"index\":{\"_id\":57}}\r\n{\"type\":\"line\",\"line_id\":58,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.55\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"At Holmedon met,\"}\r\n{\"index\":{\"_id\":58}}\r\n{\"type\":\"line\",\"line_id\":59,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.56\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Where they did spend a sad and bloody hour,\"}\r\n{\"index\":{\"_id\":59}}\r\n{\"type\":\"line\",\"line_id\":60,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.57\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"As by discharge of their artillery,\"}\r\n{\"index\":{\"_id\":60}}\r\n{\"type\":\"line\",\"line_id\":61,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.58\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"And shape of likelihood, the news was told;\"}\r\n{\"index\":{\"_id\":61}}\r\n{\"type\":\"line\",\"line_id\":62,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.59\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"For he that brought them, in the very heat\"}\r\n{\"index\":{\"_id\":62}}\r\n{\"type\":\"line\",\"line_id\":63,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.60\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"And pride of their contention did take horse,\"}\r\n{\"index\":{\"_id\":63}}\r\n{\"type\":\"line\",\"line_id\":64,\"play_name\":\"Henry IV\",\"speech_number\":4,\"line_number\":\"1.1.61\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Uncertain of the issue any way.\"}\r\n{\"index\":{\"_id\":64}}\r\n{\"type\":\"line\",\"line_id\":65,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.62\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Here is a dear, a true industrious friend,\"}\r\n{\"index\":{\"_id\":65}}\r\n{\"type\":\"line\",\"line_id\":66,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.63\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Sir Walter Blunt, new lighted from his horse.\"}\r\n{\"index\":{\"_id\":66}}\r\n{\"type\":\"line\",\"line_id\":67,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.64\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Staind with the variation of each soil\"}\r\n{\"index\":{\"_id\":67}}\r\n{\"type\":\"line\",\"line_id\":68,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.65\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Betwixt that Holmedon and this seat of ours;\"}\r\n{\"index\":{\"_id\":68}}\r\n{\"type\":\"line\",\"line_id\":69,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.66\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And he hath brought us smooth and welcome news.\"}\r\n{\"index\":{\"_id\":69}}\r\n{\"type\":\"line\",\"line_id\":70,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.67\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"The Earl of Douglas is discomfited:\"}\r\n{\"index\":{\"_id\":70}}\r\n{\"type\":\"line\",\"line_id\":71,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.68\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Ten thousand bold Scots, two and twenty knights,\"}\r\n{\"index\":{\"_id\":71}}\r\n{\"type\":\"line\",\"line_id\":72,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.69\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Balkd in their own blood did Sir Walter see\"}\r\n{\"index\":{\"_id\":72}}\r\n{\"type\":\"line\",\"line_id\":73,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.70\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"On Holmedons plains. Of prisoners, Hotspur took\"}\r\n{\"index\":{\"_id\":73}}\r\n{\"type\":\"line\",\"line_id\":74,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.71\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Mordake the Earl of Fife, and eldest son\"}\r\n{\"index\":{\"_id\":74}}\r\n{\"type\":\"line\",\"line_id\":75,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.72\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"To beaten Douglas; and the Earl of Athol,\"}\r\n{\"index\":{\"_id\":75}}\r\n{\"type\":\"line\",\"line_id\":76,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.73\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Of Murray, Angus, and Menteith:\"}\r\n{\"index\":{\"_id\":76}}\r\n{\"type\":\"line\",\"line_id\":77,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.74\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And is not this an honourable spoil?\"}\r\n{\"index\":{\"_id\":77}}\r\n{\"type\":\"line\",\"line_id\":78,\"play_name\":\"Henry IV\",\"speech_number\":5,\"line_number\":\"1.1.75\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"A gallant prize? ha, cousin, is it not?\"}\r\n{\"index\":{\"_id\":78}}\r\n{\"type\":\"line\",\"line_id\":79,\"play_name\":\"Henry IV\",\"speech_number\":6,\"line_number\":\"1.1.76\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"In faith,\"}\r\n{\"index\":{\"_id\":79}}\r\n{\"type\":\"line\",\"line_id\":80,\"play_name\":\"Henry IV\",\"speech_number\":6,\"line_number\":\"1.1.77\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"It is a conquest for a prince to boast of.\"}\r\n{\"index\":{\"_id\":80}}\r\n{\"type\":\"line\",\"line_id\":81,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.78\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Yea, there thou makest me sad and makest me sin\"}\r\n{\"index\":{\"_id\":81}}\r\n{\"type\":\"line\",\"line_id\":82,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.79\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"In envy that my Lord Northumberland\"}\r\n{\"index\":{\"_id\":82}}\r\n{\"type\":\"line\",\"line_id\":83,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.80\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Should be the father to so blest a son,\"}\r\n{\"index\":{\"_id\":83}}\r\n{\"type\":\"line\",\"line_id\":84,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.81\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"A son who is the theme of honours tongue;\"}\r\n{\"index\":{\"_id\":84}}\r\n{\"type\":\"line\",\"line_id\":85,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.82\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Amongst a grove, the very straightest plant;\"}\r\n{\"index\":{\"_id\":85}}\r\n{\"type\":\"line\",\"line_id\":86,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.83\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Who is sweet Fortunes minion and her pride:\"}\r\n{\"index\":{\"_id\":86}}\r\n{\"type\":\"line\",\"line_id\":87,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.84\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Whilst I, by looking on the praise of him,\"}\r\n{\"index\":{\"_id\":87}}\r\n{\"type\":\"line\",\"line_id\":88,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.85\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"See riot and dishonour stain the brow\"}\r\n{\"index\":{\"_id\":88}}\r\n{\"type\":\"line\",\"line_id\":89,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.86\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Of my young Harry. O that it could be proved\"}\r\n{\"index\":{\"_id\":89}}\r\n{\"type\":\"line\",\"line_id\":90,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.87\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"That some night-tripping fairy had exchanged\"}\r\n{\"index\":{\"_id\":90}}\r\n{\"type\":\"line\",\"line_id\":91,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.88\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"In cradle-clothes our children where they lay,\"}\r\n{\"index\":{\"_id\":91}}\r\n{\"type\":\"line\",\"line_id\":92,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.89\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"And calld mine Percy, his Plantagenet!\"}\r\n{\"index\":{\"_id\":92}}\r\n{\"type\":\"line\",\"line_id\":93,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.90\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Then would I have his Harry, and he mine.\"}\r\n{\"index\":{\"_id\":93}}\r\n{\"type\":\"line\",\"line_id\":94,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.91\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"But let him from my thoughts. What think you, coz,\"}\r\n{\"index\":{\"_id\":94}}\r\n{\"type\":\"line\",\"line_id\":95,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.92\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Of this young Percys pride? the prisoners,\"}\r\n{\"index\":{\"_id\":95}}\r\n{\"type\":\"line\",\"line_id\":96,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.93\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"Which he in this adventure hath surprised,\"}\r\n{\"index\":{\"_id\":96}}\r\n{\"type\":\"line\",\"line_id\":97,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.94\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"To his own use he keeps; and sends me word,\"}\r\n{\"index\":{\"_id\":97}}\r\n{\"type\":\"line\",\"line_id\":98,\"play_name\":\"Henry IV\",\"speech_number\":7,\"line_number\":\"1.1.95\",\"speaker\":\"KING HENRY IV\",\"text_entry\":\"I shall have none but Mordake Earl of Fife.\"}\r\n{\"index\":{\"_id\":98}}\r\n{\"type\":\"line\",\"line_id\":99,\"play_name\":\"Henry IV\",\"speech_number\":8,\"line_number\":\"1.1.96\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"This is his uncles teaching; this is Worcester,\"}\r\n{\"index\":{\"_id\":99}}\r\n{\"type\":\"line\",\"line_id\":100,\"play_name\":\"Henry IV\",\"speech_number\":8,\"line_number\":\"1.1.97\",\"speaker\":\"WESTMORELAND\",\"text_entry\":\"Malevolent to you in all aspects;\"}\r\n{\"index\":{\"_id\":32432}}\r\n{\"type\":\"act\",\"line_id\":32433,\"play_name\":\"Hamlet\",\"speech_number\":138,\"line_number\":\"\",\"speaker\":\"CYMBELINE\",\"text_entry\":\"ACT I\"}\r\n{\"index\":{\"_id\":32433}}\r\n{\"type\":\"scene\",\"line_id\":32434,\"play_name\":\"Hamlet\",\"speech_number\":138,\"line_number\":\"\",\"speaker\":\"CYMBELINE\",\"text_entry\":\"SCENE I. Elsinore. A platform before the castle.\"}\r\n{\"index\":{\"_id\":32434}}\r\n{\"type\":\"line\",\"line_id\":32435,\"play_name\":\"Hamlet\",\"speech_number\":138,\"line_number\":\"\",\"speaker\":\"CYMBELINE\",\"text_entry\":\"FRANCISCO at his post. Enter to him BERNARDO\"}\r\n{\"index\":{\"_id\":32435}}\r\n{\"type\":\"line\",\"line_id\":32436,\"play_name\":\"Hamlet\",\"speech_number\":1,\"line_number\":\"1.1.1\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Whos there?\"}\r\n{\"index\":{\"_id\":32436}}\r\n{\"type\":\"line\",\"line_id\":32437,\"play_name\":\"Hamlet\",\"speech_number\":2,\"line_number\":\"1.1.2\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Nay, answer me: stand, and unfold yourself.\"}\r\n{\"index\":{\"_id\":32437}}\r\n{\"type\":\"line\",\"line_id\":32438,\"play_name\":\"Hamlet\",\"speech_number\":3,\"line_number\":\"1.1.3\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Long live the king!\"}\r\n{\"index\":{\"_id\":32438}}\r\n{\"type\":\"line\",\"line_id\":32439,\"play_name\":\"Hamlet\",\"speech_number\":4,\"line_number\":\"1.1.4\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Bernardo?\"}\r\n{\"index\":{\"_id\":32439}}\r\n{\"type\":\"line\",\"line_id\":32440,\"play_name\":\"Hamlet\",\"speech_number\":5,\"line_number\":\"1.1.5\",\"speaker\":\"BERNARDO\",\"text_entry\":\"He.\"}\r\n{\"index\":{\"_id\":32440}}\r\n{\"type\":\"line\",\"line_id\":32441,\"play_name\":\"Hamlet\",\"speech_number\":6,\"line_number\":\"1.1.6\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"You come most carefully upon your hour.\"}\r\n{\"index\":{\"_id\":32441}}\r\n{\"type\":\"line\",\"line_id\":32442,\"play_name\":\"Hamlet\",\"speech_number\":7,\"line_number\":\"1.1.7\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Tis now struck twelve; get thee to bed, Francisco.\"}\r\n{\"index\":{\"_id\":32442}}\r\n{\"type\":\"line\",\"line_id\":32443,\"play_name\":\"Hamlet\",\"speech_number\":8,\"line_number\":\"1.1.8\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"For this relief much thanks: tis bitter cold,\"}\r\n{\"index\":{\"_id\":32443}}\r\n{\"type\":\"line\",\"line_id\":32444,\"play_name\":\"Hamlet\",\"speech_number\":8,\"line_number\":\"1.1.9\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"And I am sick at heart.\"}\r\n{\"index\":{\"_id\":32444}}\r\n{\"type\":\"line\",\"line_id\":32445,\"play_name\":\"Hamlet\",\"speech_number\":9,\"line_number\":\"1.1.10\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Have you had quiet guard?\"}\r\n{\"index\":{\"_id\":32445}}\r\n{\"type\":\"line\",\"line_id\":32446,\"play_name\":\"Hamlet\",\"speech_number\":10,\"line_number\":\"1.1.11\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Not a mouse stirring.\"}\r\n{\"index\":{\"_id\":32446}}\r\n{\"type\":\"line\",\"line_id\":32447,\"play_name\":\"Hamlet\",\"speech_number\":11,\"line_number\":\"1.1.12\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Well, good night.\"}\r\n{\"index\":{\"_id\":32447}}\r\n{\"type\":\"line\",\"line_id\":32448,\"play_name\":\"Hamlet\",\"speech_number\":11,\"line_number\":\"1.1.13\",\"speaker\":\"BERNARDO\",\"text_entry\":\"If you do meet Horatio and Marcellus,\"}\r\n{\"index\":{\"_id\":32448}}\r\n{\"type\":\"line\",\"line_id\":32449,\"play_name\":\"Hamlet\",\"speech_number\":11,\"line_number\":\"1.1.14\",\"speaker\":\"BERNARDO\",\"text_entry\":\"The rivals of my watch, bid them make haste.\"}\r\n{\"index\":{\"_id\":32449}}\r\n{\"type\":\"line\",\"line_id\":32450,\"play_name\":\"Hamlet\",\"speech_number\":12,\"line_number\":\"1.1.15\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"I think I hear them. Stand, ho! Whos there?\"}\r\n{\"index\":{\"_id\":32450}}\r\n{\"type\":\"line\",\"line_id\":32451,\"play_name\":\"Hamlet\",\"speech_number\":12,\"line_number\":\"\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Enter HORATIO and MARCELLUS\"}\r\n{\"index\":{\"_id\":32451}}\r\n{\"type\":\"line\",\"line_id\":32452,\"play_name\":\"Hamlet\",\"speech_number\":13,\"line_number\":\"1.1.16\",\"speaker\":\"HORATIO\",\"text_entry\":\"Friends to this ground.\"}\r\n{\"index\":{\"_id\":32452}}\r\n{\"type\":\"line\",\"line_id\":32453,\"play_name\":\"Hamlet\",\"speech_number\":14,\"line_number\":\"1.1.17\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"And liegemen to the Dane.\"}\r\n{\"index\":{\"_id\":32453}}\r\n{\"type\":\"line\",\"line_id\":32454,\"play_name\":\"Hamlet\",\"speech_number\":15,\"line_number\":\"1.1.18\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Give you good night.\"}\r\n{\"index\":{\"_id\":32454}}\r\n{\"type\":\"line\",\"line_id\":32455,\"play_name\":\"Hamlet\",\"speech_number\":16,\"line_number\":\"1.1.19\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"O, farewell, honest soldier:\"}\r\n{\"index\":{\"_id\":32455}}\r\n{\"type\":\"line\",\"line_id\":32456,\"play_name\":\"Hamlet\",\"speech_number\":16,\"line_number\":\"1.1.20\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Who hath relieved you?\"}\r\n{\"index\":{\"_id\":32456}}\r\n{\"type\":\"line\",\"line_id\":32457,\"play_name\":\"Hamlet\",\"speech_number\":17,\"line_number\":\"1.1.21\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Bernardo has my place.\"}\r\n{\"index\":{\"_id\":32457}}\r\n{\"type\":\"line\",\"line_id\":32458,\"play_name\":\"Hamlet\",\"speech_number\":17,\"line_number\":\"1.1.22\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Give you good night.\"}\r\n{\"index\":{\"_id\":32458}}\r\n{\"type\":\"line\",\"line_id\":32459,\"play_name\":\"Hamlet\",\"speech_number\":17,\"line_number\":\"\",\"speaker\":\"FRANCISCO\",\"text_entry\":\"Exit\"}\r\n{\"index\":{\"_id\":32459}}\r\n{\"type\":\"line\",\"line_id\":32460,\"play_name\":\"Hamlet\",\"speech_number\":18,\"line_number\":\"1.1.23\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Holla! Bernardo!\"}\r\n{\"index\":{\"_id\":32460}}\r\n{\"type\":\"line\",\"line_id\":32461,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"1.1.24\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Say,\"}\r\n{\"index\":{\"_id\":32461}}\r\n{\"type\":\"line\",\"line_id\":32462,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"1.1.25\",\"speaker\":\"BERNARDO\",\"text_entry\":\"What, is Horatio there?\"}\r\n{\"index\":{\"_id\":32462}}\r\n{\"type\":\"line\",\"line_id\":32463,\"play_name\":\"Hamlet\",\"speech_number\":20,\"line_number\":\"1.1.26\",\"speaker\":\"HORATIO\",\"text_entry\":\"A piece of him.\"}\r\n{\"index\":{\"_id\":32463}}\r\n{\"type\":\"line\",\"line_id\":32464,\"play_name\":\"Hamlet\",\"speech_number\":21,\"line_number\":\"1.1.27\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Welcome, Horatio: welcome, good Marcellus.\"}\r\n{\"index\":{\"_id\":32464}}\r\n{\"type\":\"line\",\"line_id\":32465,\"play_name\":\"Hamlet\",\"speech_number\":22,\"line_number\":\"1.1.28\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"What, has this thing appeard again to-night?\"}\r\n{\"index\":{\"_id\":32465}}\r\n{\"type\":\"line\",\"line_id\":32466,\"play_name\":\"Hamlet\",\"speech_number\":23,\"line_number\":\"1.1.29\",\"speaker\":\"BERNARDO\",\"text_entry\":\"I have seen nothing.\"}\r\n{\"index\":{\"_id\":32466}}\r\n{\"type\":\"line\",\"line_id\":32467,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.30\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Horatio says tis but our fantasy,\"}\r\n{\"index\":{\"_id\":32467}}\r\n{\"type\":\"line\",\"line_id\":32468,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.31\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"And will not let belief take hold of him\"}\r\n{\"index\":{\"_id\":32468}}\r\n{\"type\":\"line\",\"line_id\":32469,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.32\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Touching this dreaded sight, twice seen of us:\"}\r\n{\"index\":{\"_id\":32469}}\r\n{\"type\":\"line\",\"line_id\":32470,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.33\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Therefore I have entreated him along\"}\r\n{\"index\":{\"_id\":32470}}\r\n{\"type\":\"line\",\"line_id\":32471,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.34\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"With us to watch the minutes of this night;\"}\r\n{\"index\":{\"_id\":32471}}\r\n{\"type\":\"line\",\"line_id\":32472,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.35\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"That if again this apparition come,\"}\r\n{\"index\":{\"_id\":32472}}\r\n{\"type\":\"line\",\"line_id\":32473,\"play_name\":\"Hamlet\",\"speech_number\":24,\"line_number\":\"1.1.36\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"He may approve our eyes and speak to it.\"}\r\n{\"index\":{\"_id\":32473}}\r\n{\"type\":\"line\",\"line_id\":32474,\"play_name\":\"Hamlet\",\"speech_number\":25,\"line_number\":\"1.1.37\",\"speaker\":\"HORATIO\",\"text_entry\":\"Tush, tush, twill not appear.\"}\r\n{\"index\":{\"_id\":32474}}\r\n{\"type\":\"line\",\"line_id\":32475,\"play_name\":\"Hamlet\",\"speech_number\":26,\"line_number\":\"1.1.38\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Sit down awhile;\"}\r\n{\"index\":{\"_id\":32475}}\r\n{\"type\":\"line\",\"line_id\":32476,\"play_name\":\"Hamlet\",\"speech_number\":26,\"line_number\":\"1.1.39\",\"speaker\":\"BERNARDO\",\"text_entry\":\"And let us once again assail your ears,\"}\r\n{\"index\":{\"_id\":32476}}\r\n{\"type\":\"line\",\"line_id\":32477,\"play_name\":\"Hamlet\",\"speech_number\":26,\"line_number\":\"1.1.40\",\"speaker\":\"BERNARDO\",\"text_entry\":\"That are so fortified against our story\"}\r\n{\"index\":{\"_id\":32477}}\r\n{\"type\":\"line\",\"line_id\":32478,\"play_name\":\"Hamlet\",\"speech_number\":26,\"line_number\":\"1.1.41\",\"speaker\":\"BERNARDO\",\"text_entry\":\"What we have two nights seen.\"}\r\n{\"index\":{\"_id\":32478}}\r\n{\"type\":\"line\",\"line_id\":32479,\"play_name\":\"Hamlet\",\"speech_number\":27,\"line_number\":\"1.1.42\",\"speaker\":\"HORATIO\",\"text_entry\":\"Well, sit we down,\"}\r\n{\"index\":{\"_id\":32479}}\r\n{\"type\":\"line\",\"line_id\":32480,\"play_name\":\"Hamlet\",\"speech_number\":27,\"line_number\":\"1.1.43\",\"speaker\":\"HORATIO\",\"text_entry\":\"And let us hear Bernardo speak of this.\"}\r\n{\"index\":{\"_id\":32480}}\r\n{\"type\":\"line\",\"line_id\":32481,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"1.1.44\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Last night of all,\"}\r\n{\"index\":{\"_id\":32481}}\r\n{\"type\":\"line\",\"line_id\":32482,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"1.1.45\",\"speaker\":\"BERNARDO\",\"text_entry\":\"When yond same star thats westward from the pole\"}\r\n{\"index\":{\"_id\":32482}}\r\n{\"type\":\"line\",\"line_id\":32483,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"1.1.46\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Had made his course to illume that part of heaven\"}\r\n{\"index\":{\"_id\":32483}}\r\n{\"type\":\"line\",\"line_id\":32484,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"1.1.47\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Where now it burns, Marcellus and myself,\"}\r\n{\"index\":{\"_id\":32484}}\r\n{\"type\":\"line\",\"line_id\":32485,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"1.1.48\",\"speaker\":\"BERNARDO\",\"text_entry\":\"The bell then beating one,--\"}\r\n{\"index\":{\"_id\":32485}}\r\n{\"type\":\"line\",\"line_id\":32486,\"play_name\":\"Hamlet\",\"speech_number\":28,\"line_number\":\"\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Enter Ghost\"}\r\n{\"index\":{\"_id\":32486}}\r\n{\"type\":\"line\",\"line_id\":32487,\"play_name\":\"Hamlet\",\"speech_number\":29,\"line_number\":\"1.1.49\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Peace, break thee off; look, where it comes again!\"}\r\n{\"index\":{\"_id\":32487}}\r\n{\"type\":\"line\",\"line_id\":32488,\"play_name\":\"Hamlet\",\"speech_number\":30,\"line_number\":\"1.1.50\",\"speaker\":\"BERNARDO\",\"text_entry\":\"In the same figure, like the king thats dead.\"}\r\n{\"index\":{\"_id\":32488}}\r\n{\"type\":\"line\",\"line_id\":32489,\"play_name\":\"Hamlet\",\"speech_number\":31,\"line_number\":\"1.1.51\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Thou art a scholar; speak to it, Horatio.\"}\r\n{\"index\":{\"_id\":32489}}\r\n{\"type\":\"line\",\"line_id\":32490,\"play_name\":\"Hamlet\",\"speech_number\":32,\"line_number\":\"1.1.52\",\"speaker\":\"BERNARDO\",\"text_entry\":\"Looks it not like the king?  mark it, Horatio.\"}\r\n{\"index\":{\"_id\":32490}}\r\n{\"type\":\"line\",\"line_id\":32491,\"play_name\":\"Hamlet\",\"speech_number\":33,\"line_number\":\"1.1.53\",\"speaker\":\"HORATIO\",\"text_entry\":\"Most like: it harrows me with fear and wonder.\"}\r\n{\"index\":{\"_id\":32491}}\r\n{\"type\":\"line\",\"line_id\":32492,\"play_name\":\"Hamlet\",\"speech_number\":34,\"line_number\":\"1.1.54\",\"speaker\":\"BERNARDO\",\"text_entry\":\"It would be spoke to.\"}\r\n{\"index\":{\"_id\":32492}}\r\n{\"type\":\"line\",\"line_id\":32493,\"play_name\":\"Hamlet\",\"speech_number\":35,\"line_number\":\"1.1.55\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Question it, Horatio.\"}\r\n{\"index\":{\"_id\":32493}}\r\n{\"type\":\"line\",\"line_id\":32494,\"play_name\":\"Hamlet\",\"speech_number\":36,\"line_number\":\"1.1.56\",\"speaker\":\"HORATIO\",\"text_entry\":\"What art thou that usurpst this time of night,\"}\r\n{\"index\":{\"_id\":32494}}\r\n{\"type\":\"line\",\"line_id\":32495,\"play_name\":\"Hamlet\",\"speech_number\":36,\"line_number\":\"1.1.57\",\"speaker\":\"HORATIO\",\"text_entry\":\"Together with that fair and warlike form\"}\r\n{\"index\":{\"_id\":32495}}\r\n{\"type\":\"line\",\"line_id\":32496,\"play_name\":\"Hamlet\",\"speech_number\":36,\"line_number\":\"1.1.58\",\"speaker\":\"HORATIO\",\"text_entry\":\"In which the majesty of buried Denmark\"}\r\n{\"index\":{\"_id\":32496}}\r\n{\"type\":\"line\",\"line_id\":32497,\"play_name\":\"Hamlet\",\"speech_number\":36,\"line_number\":\"1.1.59\",\"speaker\":\"HORATIO\",\"text_entry\":\"Did sometimes march? by heaven I charge thee, speak!\"}\r\n{\"index\":{\"_id\":32497}}\r\n{\"type\":\"line\",\"line_id\":32498,\"play_name\":\"Hamlet\",\"speech_number\":37,\"line_number\":\"1.1.60\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"It is offended.\"}\r\n{\"index\":{\"_id\":32498}}\r\n{\"type\":\"line\",\"line_id\":32499,\"play_name\":\"Hamlet\",\"speech_number\":38,\"line_number\":\"1.1.61\",\"speaker\":\"BERNARDO\",\"text_entry\":\"See, it stalks away!\"}\r\n{\"index\":{\"_id\":32499}}\r\n{\"type\":\"line\",\"line_id\":32500,\"play_name\":\"Hamlet\",\"speech_number\":39,\"line_number\":\"1.1.62\",\"speaker\":\"HORATIO\",\"text_entry\":\"Stay! speak, speak! I charge thee, speak!\"}\r\n{\"index\":{\"_id\":32500}}\r\n{\"type\":\"line\",\"line_id\":32501,\"play_name\":\"Hamlet\",\"speech_number\":39,\"line_number\":\"\",\"speaker\":\"HORATIO\",\"text_entry\":\"Exit Ghost\"}\r\n{\"index\":{\"_id\":32501}}\r\n{\"type\":\"line\",\"line_id\":32502,\"play_name\":\"Hamlet\",\"speech_number\":40,\"line_number\":\"1.1.63\",\"speaker\":\"MARCELLUS\",\"text_entry\":\"Tis gone, and will not answer.\"}\r\n{\"index\":{\"_id\":32502}}\r\n{\"type\":\"line\",\"line_id\":32503,\"play_name\":\"Hamlet\",\"speech_number\":41,\"line_number\":\"1.1.64\",\"speaker\":\"BERNARDO\",\"text_entry\":\"How now, Horatio! you tremble and look pale:\"}\r\n{\"index\":{\"_id\":34229}}\r\n{\"type\":\"line\",\"line_id\":34230,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.64\",\"speaker\":\"HAMLET\",\"text_entry\":\"To be, or not to be: that is the question:\"}\r\n{\"index\":{\"_id\":34230}}\r\n{\"type\":\"line\",\"line_id\":34231,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.65\",\"speaker\":\"HAMLET\",\"text_entry\":\"Whether tis nobler in the mind to suffer\"}\r\n{\"index\":{\"_id\":34231}}\r\n{\"type\":\"line\",\"line_id\":34232,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.66\",\"speaker\":\"HAMLET\",\"text_entry\":\"The slings and arrows of outrageous fortune,\"}\r\n{\"index\":{\"_id\":34232}}\r\n{\"type\":\"line\",\"line_id\":34233,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.67\",\"speaker\":\"HAMLET\",\"text_entry\":\"Or to take arms against a sea of troubles,\"}\r\n{\"index\":{\"_id\":34233}}\r\n{\"type\":\"line\",\"line_id\":34234,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.68\",\"speaker\":\"HAMLET\",\"text_entry\":\"And by opposing end them? To die: to sleep;\"}\r\n{\"index\":{\"_id\":34234}}\r\n{\"type\":\"line\",\"line_id\":34235,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.69\",\"speaker\":\"HAMLET\",\"text_entry\":\"No more; and by a sleep to say we end\"}\r\n{\"index\":{\"_id\":34235}}\r\n{\"type\":\"line\",\"line_id\":34236,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.70\",\"speaker\":\"HAMLET\",\"text_entry\":\"The heart-ache and the thousand natural shocks\"}\r\n{\"index\":{\"_id\":34236}}\r\n{\"type\":\"line\",\"line_id\":34237,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.71\",\"speaker\":\"HAMLET\",\"text_entry\":\"That flesh is heir to, tis a consummation\"}\r\n{\"index\":{\"_id\":34237}}\r\n{\"type\":\"line\",\"line_id\":34238,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.72\",\"speaker\":\"HAMLET\",\"text_entry\":\"Devoutly to be wishd. To die, to sleep;\"}\r\n{\"index\":{\"_id\":34238}}\r\n{\"type\":\"line\",\"line_id\":34239,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.73\",\"speaker\":\"HAMLET\",\"text_entry\":\"To sleep: perchance to dream: ay, theres the rub;\"}\r\n{\"index\":{\"_id\":34239}}\r\n{\"type\":\"line\",\"line_id\":34240,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.74\",\"speaker\":\"HAMLET\",\"text_entry\":\"For in that sleep of death what dreams may come\"}\r\n{\"index\":{\"_id\":34240}}\r\n{\"type\":\"line\",\"line_id\":34241,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.75\",\"speaker\":\"HAMLET\",\"text_entry\":\"When we have shuffled off this mortal coil,\"}\r\n{\"index\":{\"_id\":34241}}\r\n{\"type\":\"line\",\"line_id\":34242,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.76\",\"speaker\":\"HAMLET\",\"text_entry\":\"Must give us pause: theres the respect\"}\r\n{\"index\":{\"_id\":34242}}\r\n{\"type\":\"line\",\"line_id\":34243,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.77\",\"speaker\":\"HAMLET\",\"text_entry\":\"That makes calamity of so long life;\"}\r\n{\"index\":{\"_id\":34243}}\r\n{\"type\":\"line\",\"line_id\":34244,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.78\",\"speaker\":\"HAMLET\",\"text_entry\":\"For who would bear the whips and scorns of time,\"}\r\n{\"index\":{\"_id\":34244}}\r\n{\"type\":\"line\",\"line_id\":34245,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.79\",\"speaker\":\"HAMLET\",\"text_entry\":\"The oppressors wrong, the proud mans contumely,\"}\r\n{\"index\":{\"_id\":34245}}\r\n{\"type\":\"line\",\"line_id\":34246,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.80\",\"speaker\":\"HAMLET\",\"text_entry\":\"The pangs of despised love, the laws delay,\"}\r\n{\"index\":{\"_id\":34246}}\r\n{\"type\":\"line\",\"line_id\":34247,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.81\",\"speaker\":\"HAMLET\",\"text_entry\":\"The insolence of office and the spurns\"}\r\n{\"index\":{\"_id\":34247}}\r\n{\"type\":\"line\",\"line_id\":34248,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.82\",\"speaker\":\"HAMLET\",\"text_entry\":\"That patient merit of the unworthy takes,\"}\r\n{\"index\":{\"_id\":34248}}\r\n{\"type\":\"line\",\"line_id\":34249,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.83\",\"speaker\":\"HAMLET\",\"text_entry\":\"When he himself might his quietus make\"}\r\n{\"index\":{\"_id\":34249}}\r\n{\"type\":\"line\",\"line_id\":34250,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.84\",\"speaker\":\"HAMLET\",\"text_entry\":\"With a bare bodkin? who would fardels bear,\"}\r\n{\"index\":{\"_id\":34250}}\r\n{\"type\":\"line\",\"line_id\":34251,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.85\",\"speaker\":\"HAMLET\",\"text_entry\":\"To grunt and sweat under a weary life,\"}\r\n{\"index\":{\"_id\":34251}}\r\n{\"type\":\"line\",\"line_id\":34252,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.86\",\"speaker\":\"HAMLET\",\"text_entry\":\"But that the dread of something after death,\"}\r\n{\"index\":{\"_id\":34252}}\r\n{\"type\":\"line\",\"line_id\":34253,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.87\",\"speaker\":\"HAMLET\",\"text_entry\":\"The undiscoverd country from whose bourn\"}\r\n{\"index\":{\"_id\":34253}}\r\n{\"type\":\"line\",\"line_id\":34254,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.88\",\"speaker\":\"HAMLET\",\"text_entry\":\"No traveller returns, puzzles the will\"}\r\n{\"index\":{\"_id\":34254}}\r\n{\"type\":\"line\",\"line_id\":34255,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.89\",\"speaker\":\"HAMLET\",\"text_entry\":\"And makes us rather bear those ills we have\"}\r\n{\"index\":{\"_id\":34255}}\r\n{\"type\":\"line\",\"line_id\":34256,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.90\",\"speaker\":\"HAMLET\",\"text_entry\":\"Than fly to others that we know not of?\"}\r\n{\"index\":{\"_id\":34256}}\r\n{\"type\":\"line\",\"line_id\":34257,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.91\",\"speaker\":\"HAMLET\",\"text_entry\":\"Thus conscience does make cowards of us all;\"}\r\n{\"index\":{\"_id\":34257}}\r\n{\"type\":\"line\",\"line_id\":34258,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.92\",\"speaker\":\"HAMLET\",\"text_entry\":\"And thus the native hue of resolution\"}\r\n{\"index\":{\"_id\":34258}}\r\n{\"type\":\"line\",\"line_id\":34259,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.93\",\"speaker\":\"HAMLET\",\"text_entry\":\"Is sicklied oer with the pale cast of thought,\"}\r\n{\"index\":{\"_id\":34259}}\r\n{\"type\":\"line\",\"line_id\":34260,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.94\",\"speaker\":\"HAMLET\",\"text_entry\":\"And enterprises of great pith and moment\"}\r\n{\"index\":{\"_id\":34260}}\r\n{\"type\":\"line\",\"line_id\":34261,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.95\",\"speaker\":\"HAMLET\",\"text_entry\":\"With this regard their currents turn awry,\"}\r\n{\"index\":{\"_id\":34261}}\r\n{\"type\":\"line\",\"line_id\":34262,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.96\",\"speaker\":\"HAMLET\",\"text_entry\":\"And lose the name of action.--Soft you now!\"}\r\n{\"index\":{\"_id\":34262}}\r\n{\"type\":\"line\",\"line_id\":34263,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.97\",\"speaker\":\"HAMLET\",\"text_entry\":\"The fair Ophelia! Nymph, in thy orisons\"}\r\n{\"index\":{\"_id\":34263}}\r\n{\"type\":\"line\",\"line_id\":34264,\"play_name\":\"Hamlet\",\"speech_number\":19,\"line_number\":\"3.1.98\",\"speaker\":\"HAMLET\",\"text_entry\":\"Be all my sins rememberd.\"}\r\n{\"index\":{\"_id\":34264}}\r\n{\"type\":\"line\",\"line_id\":34265,\"play_name\":\"Hamlet\",\"speech_number\":20,\"line_number\":\"3.1.99\",\"speaker\":\"OPHELIA\",\"text_entry\":\"Good my lord,\"}\r\n{\"index\":{\"_id\":85281}}\r\n{\"type\":\"act\",\"line_id\":85282,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"\",\"speaker\":\"RICHMOND\",\"text_entry\":\"ACT I\"}\r\n{\"index\":{\"_id\":85282}}\r\n{\"type\":\"line\",\"line_id\":85283,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"\",\"speaker\":\"RICHMOND\",\"text_entry\":\"PROLOGUE\"}\r\n{\"index\":{\"_id\":85283}}\r\n{\"type\":\"line\",\"line_id\":85284,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.1\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Two households, both alike in dignity,\"}\r\n{\"index\":{\"_id\":85284}}\r\n{\"type\":\"line\",\"line_id\":85285,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.2\",\"speaker\":\"RICHMOND\",\"text_entry\":\"In fair Verona, where we lay our scene,\"}\r\n{\"index\":{\"_id\":85285}}\r\n{\"type\":\"line\",\"line_id\":85286,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.3\",\"speaker\":\"RICHMOND\",\"text_entry\":\"From ancient grudge break to new mutiny,\"}\r\n{\"index\":{\"_id\":85286}}\r\n{\"type\":\"line\",\"line_id\":85287,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.4\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Where civil blood makes civil hands unclean.\"}\r\n{\"index\":{\"_id\":85287}}\r\n{\"type\":\"line\",\"line_id\":85288,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.5\",\"speaker\":\"RICHMOND\",\"text_entry\":\"From forth the fatal loins of these two foes\"}\r\n{\"index\":{\"_id\":85288}}\r\n{\"type\":\"line\",\"line_id\":85289,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.6\",\"speaker\":\"RICHMOND\",\"text_entry\":\"A pair of star-crossd lovers take their life;\"}\r\n{\"index\":{\"_id\":85289}}\r\n{\"type\":\"line\",\"line_id\":85290,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.7\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Whose misadventured piteous overthrows\"}\r\n{\"index\":{\"_id\":85290}}\r\n{\"type\":\"line\",\"line_id\":85291,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.8\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Do with their death bury their parents strife.\"}\r\n{\"index\":{\"_id\":85291}}\r\n{\"type\":\"line\",\"line_id\":85292,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.9\",\"speaker\":\"RICHMOND\",\"text_entry\":\"The fearful passage of their death-markd love,\"}\r\n{\"index\":{\"_id\":85292}}\r\n{\"type\":\"line\",\"line_id\":85293,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.10\",\"speaker\":\"RICHMOND\",\"text_entry\":\"And the continuance of their parents rage,\"}\r\n{\"index\":{\"_id\":85293}}\r\n{\"type\":\"line\",\"line_id\":85294,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.11\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Which, but their childrens end, nought could remove,\"}\r\n{\"index\":{\"_id\":85294}}\r\n{\"type\":\"line\",\"line_id\":85295,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.12\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Is now the two hours traffic of our stage;\"}\r\n{\"index\":{\"_id\":85295}}\r\n{\"type\":\"line\",\"line_id\":85296,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.13\",\"speaker\":\"RICHMOND\",\"text_entry\":\"The which if you with patient ears attend,\"}\r\n{\"index\":{\"_id\":85296}}\r\n{\"type\":\"line\",\"line_id\":85297,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.14\",\"speaker\":\"RICHMOND\",\"text_entry\":\"What here shall miss, our toil shall strive to mend.\"}\r\n{\"index\":{\"_id\":85297}}\r\n{\"type\":\"scene\",\"line_id\":85298,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.0.14\",\"speaker\":\"RICHMOND\",\"text_entry\":\"SCENE I. Verona. A public place.\"}\r\n{\"index\":{\"_id\":85298}}\r\n{\"type\":\"line\",\"line_id\":85299,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"\",\"speaker\":\"RICHMOND\",\"text_entry\":\"Enter SAMPSON and GREGORY, of the house of Capulet, armed with swords and bucklers\"}\r\n{\"index\":{\"_id\":85299}}\r\n{\"type\":\"line\",\"line_id\":85300,\"play_name\":\"Romeo and Juliet\",\"speech_number\":1,\"line_number\":\"1.1.1\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Gregory, o my word, well not carry coals.\"}\r\n{\"index\":{\"_id\":85300}}\r\n{\"type\":\"line\",\"line_id\":85301,\"play_name\":\"Romeo and Juliet\",\"speech_number\":2,\"line_number\":\"1.1.2\",\"speaker\":\"GREGORY\",\"text_entry\":\"No, for then we should be colliers.\"}\r\n{\"index\":{\"_id\":85301}}\r\n{\"type\":\"line\",\"line_id\":85302,\"play_name\":\"Romeo and Juliet\",\"speech_number\":3,\"line_number\":\"1.1.3\",\"speaker\":\"SAMPSON\",\"text_entry\":\"I mean, an we be in choler, well draw.\"}\r\n{\"index\":{\"_id\":85302}}\r\n{\"type\":\"line\",\"line_id\":85303,\"play_name\":\"Romeo and Juliet\",\"speech_number\":4,\"line_number\":\"1.1.4\",\"speaker\":\"GREGORY\",\"text_entry\":\"Ay, while you live, draw your neck out o the collar.\"}\r\n{\"index\":{\"_id\":85303}}\r\n{\"type\":\"line\",\"line_id\":85304,\"play_name\":\"Romeo and Juliet\",\"speech_number\":5,\"line_number\":\"1.1.5\",\"speaker\":\"SAMPSON\",\"text_entry\":\"I strike quickly, being moved.\"}\r\n{\"index\":{\"_id\":85304}}\r\n{\"type\":\"line\",\"line_id\":85305,\"play_name\":\"Romeo and Juliet\",\"speech_number\":6,\"line_number\":\"1.1.6\",\"speaker\":\"GREGORY\",\"text_entry\":\"But thou art not quickly moved to strike.\"}\r\n{\"index\":{\"_id\":85305}}\r\n{\"type\":\"line\",\"line_id\":85306,\"play_name\":\"Romeo and Juliet\",\"speech_number\":7,\"line_number\":\"1.1.7\",\"speaker\":\"SAMPSON\",\"text_entry\":\"A dog of the house of Montague moves me.\"}\r\n{\"index\":{\"_id\":85306}}\r\n{\"type\":\"line\",\"line_id\":85307,\"play_name\":\"Romeo and Juliet\",\"speech_number\":8,\"line_number\":\"1.1.8\",\"speaker\":\"GREGORY\",\"text_entry\":\"To move is to stir; and to be valiant is to stand:\"}\r\n{\"index\":{\"_id\":85307}}\r\n{\"type\":\"line\",\"line_id\":85308,\"play_name\":\"Romeo and Juliet\",\"speech_number\":8,\"line_number\":\"1.1.9\",\"speaker\":\"GREGORY\",\"text_entry\":\"therefore, if thou art moved, thou runnst away.\"}\r\n{\"index\":{\"_id\":85308}}\r\n{\"type\":\"line\",\"line_id\":85309,\"play_name\":\"Romeo and Juliet\",\"speech_number\":9,\"line_number\":\"1.1.10\",\"speaker\":\"SAMPSON\",\"text_entry\":\"A dog of that house shall move me to stand: I will\"}\r\n{\"index\":{\"_id\":85309}}\r\n{\"type\":\"line\",\"line_id\":85310,\"play_name\":\"Romeo and Juliet\",\"speech_number\":9,\"line_number\":\"1.1.11\",\"speaker\":\"SAMPSON\",\"text_entry\":\"take the wall of any man or maid of Montagues.\"}\r\n{\"index\":{\"_id\":85310}}\r\n{\"type\":\"line\",\"line_id\":85311,\"play_name\":\"Romeo and Juliet\",\"speech_number\":10,\"line_number\":\"1.1.12\",\"speaker\":\"GREGORY\",\"text_entry\":\"That shows thee a weak slave; for the weakest goes\"}\r\n{\"index\":{\"_id\":85311}}\r\n{\"type\":\"line\",\"line_id\":85312,\"play_name\":\"Romeo and Juliet\",\"speech_number\":10,\"line_number\":\"1.1.13\",\"speaker\":\"GREGORY\",\"text_entry\":\"to the wall.\"}\r\n{\"index\":{\"_id\":85312}}\r\n{\"type\":\"line\",\"line_id\":85313,\"play_name\":\"Romeo and Juliet\",\"speech_number\":11,\"line_number\":\"1.1.14\",\"speaker\":\"SAMPSON\",\"text_entry\":\"True; and therefore women, being the weaker vessels,\"}\r\n{\"index\":{\"_id\":85313}}\r\n{\"type\":\"line\",\"line_id\":85314,\"play_name\":\"Romeo and Juliet\",\"speech_number\":11,\"line_number\":\"1.1.15\",\"speaker\":\"SAMPSON\",\"text_entry\":\"are ever thrust to the wall: therefore I will push\"}\r\n{\"index\":{\"_id\":85314}}\r\n{\"type\":\"line\",\"line_id\":85315,\"play_name\":\"Romeo and Juliet\",\"speech_number\":11,\"line_number\":\"1.1.16\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Montagues men from the wall, and thrust his maids\"}\r\n{\"index\":{\"_id\":85315}}\r\n{\"type\":\"line\",\"line_id\":85316,\"play_name\":\"Romeo and Juliet\",\"speech_number\":11,\"line_number\":\"1.1.17\",\"speaker\":\"SAMPSON\",\"text_entry\":\"to the wall.\"}\r\n{\"index\":{\"_id\":85316}}\r\n{\"type\":\"line\",\"line_id\":85317,\"play_name\":\"Romeo and Juliet\",\"speech_number\":12,\"line_number\":\"1.1.18\",\"speaker\":\"GREGORY\",\"text_entry\":\"The quarrel is between our masters and us their men.\"}\r\n{\"index\":{\"_id\":85317}}\r\n{\"type\":\"line\",\"line_id\":85318,\"play_name\":\"Romeo and Juliet\",\"speech_number\":13,\"line_number\":\"1.1.19\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Tis all one, I will show myself a tyrant: when I\"}\r\n{\"index\":{\"_id\":85318}}\r\n{\"type\":\"line\",\"line_id\":85319,\"play_name\":\"Romeo and Juliet\",\"speech_number\":13,\"line_number\":\"1.1.20\",\"speaker\":\"SAMPSON\",\"text_entry\":\"have fought with the men, I will be cruel with the\"}\r\n{\"index\":{\"_id\":85319}}\r\n{\"type\":\"line\",\"line_id\":85320,\"play_name\":\"Romeo and Juliet\",\"speech_number\":13,\"line_number\":\"1.1.21\",\"speaker\":\"SAMPSON\",\"text_entry\":\"maids, and cut off their heads.\"}\r\n{\"index\":{\"_id\":85320}}\r\n{\"type\":\"line\",\"line_id\":85321,\"play_name\":\"Romeo and Juliet\",\"speech_number\":14,\"line_number\":\"1.1.22\",\"speaker\":\"GREGORY\",\"text_entry\":\"The heads of the maids?\"}\r\n{\"index\":{\"_id\":85321}}\r\n{\"type\":\"line\",\"line_id\":85322,\"play_name\":\"Romeo and Juliet\",\"speech_number\":15,\"line_number\":\"1.1.23\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Ay, the heads of the maids, or their maidenheads;\"}\r\n{\"index\":{\"_id\":85322}}\r\n{\"type\":\"line\",\"line_id\":85323,\"play_name\":\"Romeo and Juliet\",\"speech_number\":15,\"line_number\":\"1.1.24\",\"speaker\":\"SAMPSON\",\"text_entry\":\"take it in what sense thou wilt.\"}\r\n{\"index\":{\"_id\":85323}}\r\n{\"type\":\"line\",\"line_id\":85324,\"play_name\":\"Romeo and Juliet\",\"speech_number\":16,\"line_number\":\"1.1.25\",\"speaker\":\"GREGORY\",\"text_entry\":\"They must take it in sense that feel it.\"}\r\n{\"index\":{\"_id\":85324}}\r\n{\"type\":\"line\",\"line_id\":85325,\"play_name\":\"Romeo and Juliet\",\"speech_number\":17,\"line_number\":\"1.1.26\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Me they shall feel while I am able to stand: and\"}\r\n{\"index\":{\"_id\":85325}}\r\n{\"type\":\"line\",\"line_id\":85326,\"play_name\":\"Romeo and Juliet\",\"speech_number\":17,\"line_number\":\"1.1.27\",\"speaker\":\"SAMPSON\",\"text_entry\":\"tis known I am a pretty piece of flesh.\"}\r\n{\"index\":{\"_id\":85326}}\r\n{\"type\":\"line\",\"line_id\":85327,\"play_name\":\"Romeo and Juliet\",\"speech_number\":18,\"line_number\":\"1.1.28\",\"speaker\":\"GREGORY\",\"text_entry\":\"Tis well thou art not fish; if thou hadst, thou\"}\r\n{\"index\":{\"_id\":85327}}\r\n{\"type\":\"line\",\"line_id\":85328,\"play_name\":\"Romeo and Juliet\",\"speech_number\":18,\"line_number\":\"1.1.29\",\"speaker\":\"GREGORY\",\"text_entry\":\"hadst been poor John. Draw thy tool! here comes\"}\r\n{\"index\":{\"_id\":85328}}\r\n{\"type\":\"line\",\"line_id\":85329,\"play_name\":\"Romeo and Juliet\",\"speech_number\":18,\"line_number\":\"1.1.30\",\"speaker\":\"GREGORY\",\"text_entry\":\"two of the house of the Montagues.\"}\r\n{\"index\":{\"_id\":85329}}\r\n{\"type\":\"line\",\"line_id\":85330,\"play_name\":\"Romeo and Juliet\",\"speech_number\":19,\"line_number\":\"1.1.31\",\"speaker\":\"SAMPSON\",\"text_entry\":\"My naked weapon is out: quarrel, I will back thee.\"}\r\n{\"index\":{\"_id\":85330}}\r\n{\"type\":\"line\",\"line_id\":85331,\"play_name\":\"Romeo and Juliet\",\"speech_number\":20,\"line_number\":\"1.1.32\",\"speaker\":\"GREGORY\",\"text_entry\":\"How! turn thy back and run?\"}\r\n{\"index\":{\"_id\":85331}}\r\n{\"type\":\"line\",\"line_id\":85332,\"play_name\":\"Romeo and Juliet\",\"speech_number\":21,\"line_number\":\"1.1.33\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Fear me not.\"}\r\n{\"index\":{\"_id\":85332}}\r\n{\"type\":\"line\",\"line_id\":85333,\"play_name\":\"Romeo and Juliet\",\"speech_number\":22,\"line_number\":\"1.1.34\",\"speaker\":\"GREGORY\",\"text_entry\":\"No, marry; I fear thee!\"}\r\n{\"index\":{\"_id\":85333}}\r\n{\"type\":\"line\",\"line_id\":85334,\"play_name\":\"Romeo and Juliet\",\"speech_number\":23,\"line_number\":\"1.1.35\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Let us take the law of our sides; let them begin.\"}\r\n{\"index\":{\"_id\":85334}}\r\n{\"type\":\"line\",\"line_id\":85335,\"play_name\":\"Romeo and Juliet\",\"speech_number\":24,\"line_number\":\"1.1.36\",\"speaker\":\"GREGORY\",\"text_entry\":\"I will frown as I pass by, and let them take it as\"}\r\n{\"index\":{\"_id\":85335}}\r\n{\"type\":\"line\",\"line_id\":85336,\"play_name\":\"Romeo and Juliet\",\"speech_number\":24,\"line_number\":\"1.1.37\",\"speaker\":\"GREGORY\",\"text_entry\":\"they list.\"}\r\n{\"index\":{\"_id\":85336}}\r\n{\"type\":\"line\",\"line_id\":85337,\"play_name\":\"Romeo and Juliet\",\"speech_number\":25,\"line_number\":\"1.1.38\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Nay, as they dare. I will bite my thumb at them;\"}\r\n{\"index\":{\"_id\":85337}}\r\n{\"type\":\"line\",\"line_id\":85338,\"play_name\":\"Romeo and Juliet\",\"speech_number\":25,\"line_number\":\"1.1.39\",\"speaker\":\"SAMPSON\",\"text_entry\":\"which is a disgrace to them, if they bear it.\"}\r\n{\"index\":{\"_id\":85338}}\r\n{\"type\":\"line\",\"line_id\":85339,\"play_name\":\"Romeo and Juliet\",\"speech_number\":25,\"line_number\":\"\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Enter ABRAHAM and BALTHASAR\"}\r\n{\"index\":{\"_id\":85339}}\r\n{\"type\":\"line\",\"line_id\":85340,\"play_name\":\"Romeo and Juliet\",\"speech_number\":26,\"line_number\":\"1.1.40\",\"speaker\":\"ABRAHAM\",\"text_entry\":\"Do you bite your thumb at us, sir?\"}\r\n{\"index\":{\"_id\":85340}}\r\n{\"type\":\"line\",\"line_id\":85341,\"play_name\":\"Romeo and Juliet\",\"speech_number\":27,\"line_number\":\"1.1.41\",\"speaker\":\"SAMPSON\",\"text_entry\":\"I do bite my thumb, sir.\"}\r\n{\"index\":{\"_id\":85341}}\r\n{\"type\":\"line\",\"line_id\":85342,\"play_name\":\"Romeo and Juliet\",\"speech_number\":28,\"line_number\":\"1.1.42\",\"speaker\":\"ABRAHAM\",\"text_entry\":\"Do you bite your thumb at us, sir?\"}\r\n{\"index\":{\"_id\":85342}}\r\n{\"type\":\"line\",\"line_id\":85343,\"play_name\":\"Romeo and Juliet\",\"speech_number\":29,\"line_number\":\"1.1.43\",\"speaker\":\"SAMPSON\",\"text_entry\":\"[Aside to GREGORY]  Is the law of our side, if I say\"}\r\n{\"index\":{\"_id\":85343}}\r\n{\"type\":\"line\",\"line_id\":85344,\"play_name\":\"Romeo and Juliet\",\"speech_number\":29,\"line_number\":\"1.1.44\",\"speaker\":\"SAMPSON\",\"text_entry\":\"ay?\"}\r\n{\"index\":{\"_id\":85344}}\r\n{\"type\":\"line\",\"line_id\":85345,\"play_name\":\"Romeo and Juliet\",\"speech_number\":30,\"line_number\":\"1.1.45\",\"speaker\":\"GREGORY\",\"text_entry\":\"No.\"}\r\n{\"index\":{\"_id\":85345}}\r\n{\"type\":\"line\",\"line_id\":85346,\"play_name\":\"Romeo and Juliet\",\"speech_number\":31,\"line_number\":\"1.1.46\",\"speaker\":\"SAMPSON\",\"text_entry\":\"No, sir, I do not bite my thumb at you, sir, but I\"}\r\n{\"index\":{\"_id\":85346}}\r\n{\"type\":\"line\",\"line_id\":85347,\"play_name\":\"Romeo and Juliet\",\"speech_number\":31,\"line_number\":\"1.1.47\",\"speaker\":\"SAMPSON\",\"text_entry\":\"bite my thumb, sir.\"}\r\n{\"index\":{\"_id\":85347}}\r\n{\"type\":\"line\",\"line_id\":85348,\"play_name\":\"Romeo and Juliet\",\"speech_number\":32,\"line_number\":\"1.1.48\",\"speaker\":\"GREGORY\",\"text_entry\":\"Do you quarrel, sir?\"}\r\n{\"index\":{\"_id\":85348}}\r\n{\"type\":\"line\",\"line_id\":85349,\"play_name\":\"Romeo and Juliet\",\"speech_number\":33,\"line_number\":\"1.1.49\",\"speaker\":\"ABRAHAM\",\"text_entry\":\"Quarrel sir! no, sir.\"}\r\n{\"index\":{\"_id\":85349}}\r\n{\"type\":\"line\",\"line_id\":85350,\"play_name\":\"Romeo and Juliet\",\"speech_number\":34,\"line_number\":\"1.1.50\",\"speaker\":\"SAMPSON\",\"text_entry\":\"If you do, sir, I am for you: I serve as good a man as you.\"}\r\n{\"index\":{\"_id\":85350}}\r\n{\"type\":\"line\",\"line_id\":85351,\"play_name\":\"Romeo and Juliet\",\"speech_number\":35,\"line_number\":\"1.1.51\",\"speaker\":\"ABRAHAM\",\"text_entry\":\"No better.\"}\r\n{\"index\":{\"_id\":85351}}\r\n{\"type\":\"line\",\"line_id\":85352,\"play_name\":\"Romeo and Juliet\",\"speech_number\":36,\"line_number\":\"1.1.52\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Well, sir.\"}\r\n{\"index\":{\"_id\":85352}}\r\n{\"type\":\"line\",\"line_id\":85353,\"play_name\":\"Romeo and Juliet\",\"speech_number\":37,\"line_number\":\"1.1.53\",\"speaker\":\"GREGORY\",\"text_entry\":\"Say better: here comes one of my masters kinsmen.\"}\r\n{\"index\":{\"_id\":85353}}\r\n{\"type\":\"line\",\"line_id\":85354,\"play_name\":\"Romeo and Juliet\",\"speech_number\":38,\"line_number\":\"1.1.54\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Yes, better, sir.\"}\r\n{\"index\":{\"_id\":85354}}\r\n{\"type\":\"line\",\"line_id\":85355,\"play_name\":\"Romeo and Juliet\",\"speech_number\":39,\"line_number\":\"1.1.55\",\"speaker\":\"ABRAHAM\",\"text_entry\":\"You lie.\"}\r\n{\"index\":{\"_id\":85355}}\r\n{\"type\":\"line\",\"line_id\":85356,\"play_name\":\"Romeo and Juliet\",\"speech_number\":40,\"line_number\":\"1.1.56\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Draw, if you be men. Gregory, remember thy swashing blow.\"}\r\n{\"index\":{\"_id\":85356}}\r\n{\"type\":\"line\",\"line_id\":85357,\"play_name\":\"Romeo and Juliet\",\"speech_number\":40,\"line_number\":\"\",\"speaker\":\"SAMPSON\",\"text_entry\":\"They fight\"}\r\n{\"index\":{\"_id\":85357}}\r\n{\"type\":\"line\",\"line_id\":85358,\"play_name\":\"Romeo and Juliet\",\"speech_number\":40,\"line_number\":\"\",\"speaker\":\"SAMPSON\",\"text_entry\":\"Enter BENVOLIO\"}\r\n"
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/doc/_bulk?pretty",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						"doc",
+						"_bulk"
+					],
+					"query": [
+						{
+							"key": "pretty",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15 - simple search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{index_name}}_2/doc/_search?q=Horatio",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{index_name}}_2",
+						"doc",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Horatio"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
