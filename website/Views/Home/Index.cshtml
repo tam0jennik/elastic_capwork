@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SearchResult>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Shakespeare plays</h2>
+    </div>
+</div>
+<div class="row">
+<form method="get"  >
+  <div class="form-group">
+    <input type="text" class="form-control" name="input" id="input" aria-describedby="inputHelp" placeholder="Enter text">
+    <small id="inputHelp" class="form-text text-muted">Print part of phrase, role.</small>
+  </div>
+  <button type="submit" asp-action="Index" class="btn btn-primary">Submit</button>
+</form>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.play_name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.line_number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.speaker)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.text_entry)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.play_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.line_number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.speaker)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.text_entry)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Create", "Create", "Plays")
+</div>

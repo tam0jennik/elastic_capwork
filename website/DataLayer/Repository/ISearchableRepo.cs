@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.Repository
+{
+    public interface ISearchableRepo<TEntity> : IRepository<TEntity> where TEntity : IEntity
+    {
+        Task<IEnumerable<TEntity>> Search(string input, SelectSettings settings);
+        Task<IEnumerable<TEntity>> GetAll(SelectSettings settings);
+    }
+}
