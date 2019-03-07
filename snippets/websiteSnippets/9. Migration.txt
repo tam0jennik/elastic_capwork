@@ -27,11 +27,17 @@ namespace website.DataLayer.InitStrategies
                         client.CreateIndex(VersionedName(indexName, version));
 
                         if (version == 1)
-                            FillByData(client, indexName);
+                        {
+                            FillByData(client, VersionedName(indexName, version));
+                            UpdateAlias(client, indexName, flushOld: false);
+                        }
                         else
+                        {
                             MigrateData(client, indexName);
+                            UpdateAlias(client, indexName, flushOld: true);
+                        }
 
-                        UpdateAlias(client, indexName);
+
                     }
                 }
                 catch (Exception e)
@@ -43,7 +49,7 @@ namespace website.DataLayer.InitStrategies
             }
         }
 
-        protected string VersionedName(string name, int version) => $"{name}-${version}";
+        protected string VersionedName(string name, int version) => $"{name}-{version}";
 
         protected void MigrateData(IElasticClient client, string indexName)
         {
@@ -62,10 +68,11 @@ namespace website.DataLayer.InitStrategies
             Task.WhenAll(saveJobs).Wait();
         }
 
-        protected void UpdateAlias(IElasticClient client, string indexName)
+        protected void UpdateAlias(IElasticClient client, string indexName, bool flushOld)
         {
-            client.Alias(x => x.Remove(a => a.Alias(indexName).Index(VersionedName(indexName, version - 1))));
-            client.Alias(x => x.Add(a => a.Alias(indexName).Index(VersionedName(indexName, version - 1))));
+            if(flushOld)
+                client.Alias(x => x.Remove(a => a.Alias(indexName).Index(VersionedName(indexName, version - 1))));
+            client.Alias(x => x.Add(a => a.Alias(indexName).Index(VersionedName(indexName, version))));
         }
 
         protected bool CheckNeedToInit(IElasticClient client, string indexName)
