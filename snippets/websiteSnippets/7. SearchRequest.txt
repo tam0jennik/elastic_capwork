@@ -1,0 +1,31 @@
+ public override async Task<IEnumerable<PlayModel>> Search(string input, SelectSettings settings)
+        {
+            var res = await client.SearchAsync<PlayModel>(q =>
+            {
+                var query = q
+                    .Preference(settings.Source.ToString())
+                    .Type(config.PlaysDocType)
+                    .Index(config.PlaysIndexName)
+                    .ExecuteOnPrimary()
+                    .Size(settings.Size)
+                    .Sort(s => s.Field(settings.SortBy, settings.Order))
+                    .Query(q1 => q1
+                        .Bool(boolDescriptor => boolDescriptor
+                            .Should(s1 => s1
+                                .MultiMatch(mp => mp
+                                    .Query(input)
+                                    .Fields(f => f
+                                        .Field(f1 => f1.Speaker, 2)
+                                        .Fields(f2 => f2.TextEntry)))
+                    )));
+
+                using (MemoryStream mStream = new MemoryStream())
+                {
+                    client.RequestResponseSerializer.Serialize(query, mStream, SerializationFormatting.None);
+                    string rawQueryText = Encoding.ASCII.GetString(mStream.ToArray());
+                }
+                return query;
+            });
+
+            return res.Hits.Select(h => h.Source);
+        }

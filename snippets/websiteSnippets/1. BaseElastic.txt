@@ -1,0 +1,90 @@
+using Elasticsearch.Net;
+using Microsoft.Extensions.Options;
+using Nest;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using website.Configuration;
+using website.DataLayer.InitStrategies;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.Repository
+{
+    public abstract class ElasticsearchBaseRepo<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    {
+        protected IElasticClient client;
+        protected readonly ElasticConfig config;
+
+        public ElasticsearchBaseRepo(IElasticClient elasticClient, IOptions<ElasticConfig> config)
+        {
+            client = elasticClient ?? throw new ArgumentNullException(nameof(elasticClient));
+            this.config = config?.Value ?? throw new ArgumentNullException(nameof(config));
+        }
+
+        public async Task<TEntity> Get(string id, ShardSource source)
+        {
+            TEntity result = null;
+            var request = new GetRequest(config.PlaysIndexName, config.PlaysDocType, id);
+
+            var res = await client.GetAsync<TEntity>(request);
+
+            if (res.Source != null)
+            {
+                result = res.Source;
+                result.Id = res.Id;
+            }
+
+            return result;
+        }
+
+        public async Task<TEntity> Add(TEntity item)
+        {
+            var res = await client.CreateAsync<TEntity>(item, idx =>
+              idx.Type(config.PlaysDocType)
+                  .Index(config.PlaysIndexName)
+                  .Id(item.Id)
+                );
+
+            return item;
+        }
+
+        public async Task<TEntity> Update(TEntity item)
+        {
+            var res = await client.IndexAsync<TEntity>(item, idx =>
+            idx.Type(config.PlaysDocType)
+                .Index(config.PlaysIndexName)
+                .Id(item.Id)
+              );
+
+            return item;
+        }
+
+        public async Task Delete(string id)
+        {
+            DocumentPath<TEntity> path =
+                new DocumentPath<TEntity>(new Id(id)).Index(config.PlaysDocType).Type(config.PlaysIndexName);
+
+            var res = await client.DeleteAsync(path);
+        }
+
+        public async Task Delete(TEntity item)
+        {
+            await Delete(item.Id);
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAll(SelectSettings settings)
+        {
+            var res = await client.SearchAsync<TEntity>(q =>
+                 q
+                   .Preference(settings.Source.ToString())
+                   .Type(config.PlaysDocType)
+                   .Index(config.PlaysIndexName)
+                   .ExecuteOnPrimary()
+                   .Size(settings.Size)
+                   .Sort(s => s.Field(settings.SortBy, settings.Order)));
+
+            return res.Hits.Select(h => h.Source);
+        }
+    }
+}

@@ -1,0 +1,77 @@
+using Nest;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.InitStrategies
+{
+    public class MigrationStrategy : IInitStrategy
+    {
+        const string INIT_DATA_FILENAME_TEMPLATE = "data.json";
+
+        private object _lock = new object();
+        private int version = 1;
+        public virtual void Init(IElasticClient client, string indexName)
+        {
+            lock (_lock)
+            {
+                try
+                {
+
+                    if (CheckNeedToInit(client, VersionedName(indexName, version)))
+                    {
+                        client.CreateIndex(VersionedName(indexName, version));
+
+                        if (version == 1)
+                            FillByData(client, indexName);
+                        else
+                            MigrateData(client, indexName);
+
+                        UpdateAlias(client, indexName);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
+        protected string VersionedName(string name, int version) => $"{name}-${version}";
+
+        protected void MigrateData(IElasticClient client, string indexName)
+        {
+            var reindex = client.ReindexOnServer(r => r
+               .Source(s => s.Index(VersionedName(indexName, version - 1)))
+               .Destination(d => d.Index(VersionedName(indexName, version)))
+             );
+        }
+        protected void FillByData(IElasticClient client, string indexName)
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, INIT_DATA_FILENAME_TEMPLATE);
+            var data = JsonConvert.DeserializeObject<IEnumerable<PlayModel>>(File.ReadAllText(filePath));
+            var saveJobs = data.Select(doc => client.IndexAsync(doc, idx =>
+                 idx.Index(indexName)
+            ));
+            Task.WhenAll(saveJobs).Wait();
+        }
+
+        protected void UpdateAlias(IElasticClient client, string indexName)
+        {
+            client.Alias(x => x.Remove(a => a.Alias(indexName).Index(VersionedName(indexName, version - 1))));
+            client.Alias(x => x.Add(a => a.Alias(indexName).Index(VersionedName(indexName, version - 1))));
+        }
+
+        protected bool CheckNeedToInit(IElasticClient client, string indexName)
+        {
+            return !client.IndexExists(indexName).Exists;
+        }
+    }
+
+}

@@ -1,0 +1,6 @@
+using (MemoryStream mStream = new MemoryStream())
+{
+	client.RequestResponseSerializer.Serialize(query, mStream, SerializationFormatting.None);
+	string rawQueryText = Encoding.ASCII.GetString(mStream.ToArray());
+}
+return query;

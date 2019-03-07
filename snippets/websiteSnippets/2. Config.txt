@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace website.Configuration
+{
+    public class ElasticConfig
+    {
+        public string Uri { get; set; }
+        public string PlaysIndexName { get; set; }
+        public string PlaysDocType { get; set; }
+    }
+}
+
+ 
+ "ElasticConfig": {
+    "Uri": "http://10.6.217.106:9200",
+    "PlaysIndexName": "alexshab6",
+    "PlaysDocType": "playmodel"
+  }

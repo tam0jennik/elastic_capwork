@@ -1,0 +1,89 @@
+---------------------
+using Nest;
+
+namespace website.DataLayer.InitStrategies
+{
+    public interface IInitStrategy
+    {
+        void Init(IElasticClient client, string indexName);
+    }
+}
+---------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Nest;
+
+namespace website.DataLayer.InitStrategies
+{
+    public class JustCreateStrategy : IInitStrategy
+    {
+        private object _lock = new object();
+        public virtual void Init(IElasticClient client, string indexName)
+        {
+            lock (_lock)
+            {
+                if (CheckNeedToInit(client, indexName))
+                    client.CreateIndex(indexName);
+            }
+        }
+
+        protected  bool CheckNeedToInit(IElasticClient client, string indexName)
+        {
+            return !client.IndexExists(indexName).Exists;
+        }
+    }
+}
+---------------------
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Nest;
+using Newtonsoft.Json;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.InitStrategies
+{
+    public class InitAndFillStrategy : IInitStrategy
+    {
+        const string INIT_DATA_FILENAME_TEMPLATE = "data.json";
+        private object _lock = new object();
+        public virtual void Init(IElasticClient client, string indexName)
+        {
+            lock (_lock)
+            {
+                try
+                {
+                    if (CheckNeedToInit(client, indexName))
+                    {
+                        client.CreateIndex(indexName);
+                        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, INIT_DATA_FILENAME_TEMPLATE);
+                        var data = JsonConvert.DeserializeObject<IEnumerable<PlayModel>>(File.ReadAllText(filePath));
+                        var saveJobs = data.Select(doc => client.IndexAsync(doc, idx =>
+                             idx.Index(indexName)
+                        ));
+                        Task.WhenAll(saveJobs).Wait();
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
+        protected bool CheckNeedToInit(IElasticClient client, string indexName)
+        {
+            return !client.IndexExists(indexName).Exists;
+        }
+    }
+}
+
+---------------------
+
+

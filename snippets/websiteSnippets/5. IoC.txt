@@ -1,0 +1,14 @@
+-------------------------------------
+services.Configure<ElasticConfig>(Configuration.GetSection("ElasticConfig"));
+services.AddScoped<IElasticClient, ElasticClient>(serviceProvider => {
+	var config = serviceProvider.GetService<IOptions<ElasticConfig>>();
+	return new ElasticClient(ComposeSettings(config.Value));
+});
+services.AddScoped<ISearchableRepo<PlayModel>, PlaysRepository>();
+services.AddScoped<IPlaysService, PlaysService>();            
+
+-------------------------------------
+public ConnectionSettings ComposeSettings(ElasticConfig config) =>
+        new ConnectionSettings(new Uri(config.Uri))
+            .ThrowExceptions()
+            .DefaultIndex(config.PlaysIndexName);

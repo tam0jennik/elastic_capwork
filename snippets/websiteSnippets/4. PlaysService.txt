@@ -1,0 +1,46 @@
+---------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using website.DataLayer.Models;
+
+namespace website.Services
+{
+    public interface IPlaysService
+    {
+        Task<IEnumerable<PlayModel>> Select();
+        Task Create(PlayModel model);
+    }
+}
+---------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using website.DataLayer;
+using website.DataLayer.Models;
+using website.DataLayer.Repository;
+
+namespace website.Services
+{
+    public class PlaysService : IPlaysService
+    {
+        private readonly ISearchableRepo<PlayModel> repository;
+
+        public PlaysService(ISearchableRepo<PlayModel> repository)
+        {
+            this.repository = repository;
+        }
+
+        public async Task Create(PlayModel model)
+        {
+            await repository.Add(model);
+        }
+
+        public async Task<IEnumerable<PlayModel>> Select()
+        {            
+			return await repository.GetAll(SelectSettings.Default);            
+        }
+    }
+}

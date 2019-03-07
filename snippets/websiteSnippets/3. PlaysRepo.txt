@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Elasticsearch.Net;
+using Microsoft.Extensions.Options;
+using Nest;
+using website.Configuration;
+using website.DataLayer.InitStrategies;
+using website.DataLayer.Models;
+using website.Models;
+
+namespace website.DataLayer.Repository
+{
+    public class PlaysRepository : ElasticsearchBaseRepo<PlayModel>
+    {
+        public PlaysRepository(IElasticClient elasticClient, IOptions<ElasticConfig> config) : base(elasticClient, config)
+        {
+        }   
+    }
+}
+
