@@ -13,5 +13,6 @@ namespace website.DataLayer.Repository
         Task<TEntity> Update(TEntity item);
         Task Delete(string id);
         Task Delete(TEntity item);
+        Task<IEnumerable<TEntity>> GetAll(SelectSettings settings);
     }
 }

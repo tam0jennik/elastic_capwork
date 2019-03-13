@@ -26,7 +26,7 @@ namespace website.DataLayer.InitStrategies
                     {
                         client.CreateIndex(VersionedName(indexName, version));
 
-                        if (version == 1)
+                        if (version == 1 !client.IndexExists(VersionedName(indexName, version - 1)).Exists)
                         {
                             FillByData(client, VersionedName(indexName, version));
                             UpdateAlias(client, indexName, flushOld: false);

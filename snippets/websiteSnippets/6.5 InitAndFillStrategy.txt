@@ -1,41 +1,3 @@
----------------------
-using Nest;
-
-namespace website.DataLayer.InitStrategies
-{
-    public interface IInitStrategy
-    {
-        void Init(IElasticClient client, string indexName);
-    }
-}
----------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Nest;
-
-namespace website.DataLayer.InitStrategies
-{
-    public class JustCreateStrategy : IInitStrategy
-    {
-        private object _lock = new object();
-        public virtual void Init(IElasticClient client, string indexName)
-        {
-            lock (_lock)
-            {
-                if (CheckNeedToInit(client, indexName))
-                    client.CreateIndex(indexName);
-            }
-        }
-
-        protected  bool CheckNeedToInit(IElasticClient client, string indexName)
-        {
-            return !client.IndexExists(indexName).Exists;
-        }
-    }
-}
----------------------
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -83,7 +45,3 @@ namespace website.DataLayer.InitStrategies
         }
     }
 }
-
----------------------
-
-

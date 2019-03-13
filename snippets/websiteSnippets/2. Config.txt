@@ -12,10 +12,3 @@ namespace website.Configuration
         public string PlaysDocType { get; set; }
     }
 }
-
- 
- "ElasticConfig": {
-    "Uri": "http://10.6.217.106:9200",
-    "PlaysIndexName": "alexshab6",
-    "PlaysDocType": "playmodel"
-  }

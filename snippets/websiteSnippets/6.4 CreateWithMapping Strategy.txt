@@ -1,0 +1,31 @@
+using Nest;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.InitStrategies
+{
+    public class CreateWithMappingStrategy : IInitMappedStrategy<PlayModel>
+    {
+        private object _lock = new object();
+        public virtual void Init(IElasticClient client, string indexName)
+        {
+            lock (_lock)
+            {
+                if (CheckNeedToInit(client, indexName))
+                    client.CreateIndex(indexName, InitMapping);
+            }
+        }
+
+        protected ICreateIndexRequest InitMapping(CreateIndexDescriptor descriptor) =>
+             descriptor
+                .Mappings(mapping => mapping.Map<PlayModel>(InitTypeDesciption));
+
+        protected ITypeMapping InitTypeDesciption(TypeMappingDescriptor<PlayModel> typeDescriptor) =>
+            typeDescriptor
+                .Properties(prop => prop.Keyword(s => s.Name(n => n.Speaker)));
+
+        protected bool CheckNeedToInit(IElasticClient client, string indexName)
+        {
+            return !client.IndexExists(indexName).Exists;
+        }
+    }
+}

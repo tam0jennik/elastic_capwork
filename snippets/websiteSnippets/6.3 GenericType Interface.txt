@@ -1,0 +1,10 @@
+using Nest;
+using website.DataLayer.Models;
+
+namespace website.DataLayer.InitStrategies
+{
+    public interface IInitMappedStrategy<T> where T : class, IEntity
+    {
+        void Init(IElasticClient client, string indexName);
+    }
+}

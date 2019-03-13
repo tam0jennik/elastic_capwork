@@ -1,0 +1,4 @@
+public ConnectionSettings ComposeSettings(ElasticConfig config) =>
+        new ConnectionSettings(new Uri(config.Uri))
+            .ThrowExceptions()
+            .DefaultIndex(config.PlaysIndexName);

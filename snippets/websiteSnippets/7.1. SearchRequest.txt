@@ -17,13 +17,7 @@
                                     .Fields(f => f
                                         .Field(f1 => f1.Speaker, 2)
                                         .Fields(f2 => f2.TextEntry)))
-                    )));
-
-                using (MemoryStream mStream = new MemoryStream())
-                {
-                    client.RequestResponseSerializer.Serialize(query, mStream, SerializationFormatting.None);
-                    string rawQueryText = Encoding.ASCII.GetString(mStream.ToArray());
-                }
+                    )));                
                 return query;
             });
 

@@ -1,0 +1,14 @@
+input { 
+	file {				
+		path => [ "C:\temp\*.json" ]		
+		codec => "json_lines"
+		start_position => "beginning"
+		sincedb_path => "C:\temp\db"
+	} 
+} 
+output { 
+	elasticsearch {
+		hosts => ["localhost:9200"]
+		index => "logs_json_alex_shab-%{+YYYY.MM}" 
+	} 
+}

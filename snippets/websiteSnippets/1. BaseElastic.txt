@@ -11,7 +11,7 @@ using website.DataLayer.Models;
 
 namespace website.DataLayer.Repository
 {
-    public abstract class ElasticsearchBaseRepo<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class ElasticsearchBaseRepo<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         protected IElasticClient client;
         protected readonly ElasticConfig config;
