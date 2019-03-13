@@ -3,5 +3,5 @@ services.AddScoped<IElasticClient, ElasticClient>(serviceProvider => {
 	var config = serviceProvider.GetService<IOptions<ElasticConfig>>();
 	return new ElasticClient(ComposeSettings(config.Value));
 });
-services.AddScoped<ISearchableRepo<PlayModel>, PlaysRepository>();
+services.AddScoped<DataLayer.Repository.IRepository<PlayModel>, PlaysRepository>();
 services.AddScoped<IPlaysService, PlaysService>();            
